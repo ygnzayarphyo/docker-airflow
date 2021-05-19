@@ -3,10 +3,23 @@ services:
     redis:
         image: 'redis:5.0.5'
         # command: redis-server --requirepass redispass
+    mysql:
+        image: mysql:5.7
+        command: --max_allowed_packet=32505856
+        ports:
+          - "32000:3306"
+        environment:
+          TZ: Asia/Tokyo
+          MYSQL_ROOT_PASSWORD: root
+          LANG: C.UTF-8
+        volumes:
+          - ./misc:/docker-entrypoint-initdb.d/:ro
+          - ./mysql/custom.conf:/etc/mysql/conf.d/custom.cnf
 
     postgres:
         image: postgres:9.6
         environment:
+            - TZ=Asia/Tokyo
             - POSTGRES_USER=airflow
             - POSTGRES_PASSWORD=airflow
             - POSTGRES_DB=airflow
@@ -22,19 +35,20 @@ services:
             - postgres
             - redis
         environment:
+            - TZ=Asia/Tokyo
             - LOAD_EX=n
             - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
             - EXECUTOR=Celery
-            # - POSTGRES_USER=airflow
-            # - POSTGRES_PASSWORD=airflow
-            # - POSTGRES_DB=airflow
-            # - REDIS_PASSWORD=redispass
+            - POSTGRES_USER=airflow
+            - POSTGRES_PASSWORD=airflow
+            - POSTGRES_DB=airflow
+            - REDIS_PASSWORD=redispass
         volumes:
             - ./dags:/usr/local/airflow/dags
             # Uncomment to include custom plugins
-            # - ./plugins:/usr/local/airflow/plugins
+            - ./plugins:/usr/local/airflow/plugins
         ports:
-            - "8080:8080"
+            - "8000:8080"
         command: webserver
         healthcheck:
             test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
@@ -48,6 +62,7 @@ services:
         depends_on:
             - redis
         environment:
+            - TZ=Asia/Tokyo
             - EXECUTOR=Celery
             # - REDIS_PASSWORD=redispass
         ports:
@@ -60,17 +75,19 @@ services:
         depends_on:
             - webserver
         volumes:
+            - ./requirements.txt:/requirements.txt
             - ./dags:/usr/local/airflow/dags
             # Uncomment to include custom plugins
-            # - ./plugins:/usr/local/airflow/plugins
+            - ./plugins:/usr/local/airflow/plugins
         environment:
+            - TZ=Asia/Tokyo
             - LOAD_EX=n
             - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
             - EXECUTOR=Celery
-            # - POSTGRES_USER=airflow
-            # - POSTGRES_PASSWORD=airflow
-            # - POSTGRES_DB=airflow
-            # - REDIS_PASSWORD=redispass
+            - POSTGRES_USER=airflow
+            - POSTGRES_PASSWORD=airflow
+            - POSTGRES_DB=airflow
+            - REDIS_PASSWORD=redispass
         command: scheduler
 
     worker:
@@ -79,14 +96,16 @@ services:
         depends_on:
             - scheduler
         volumes:
+            - ./requirements.txt:/requirements.txt
             - ./dags:/usr/local/airflow/dags
             # Uncomment to include custom plugins
-            # - ./plugins:/usr/local/airflow/plugins
+            - ./plugins:/usr/local/airflow/plugins
         environment:
+            - TZ=Asia/Tokyo
             - FERNET_KEY=46BKJoQYlPPOexq0OhDZnIlNepKFf87WFwLbfzqDDho=
             - EXECUTOR=Celery
-            # - POSTGRES_USER=airflow
-            # - POSTGRES_PASSWORD=airflow
-            # - POSTGRES_DB=airflow
-            # - REDIS_PASSWORD=redispass
+            - POSTGRES_USER=airflow
+            - POSTGRES_PASSWORD=airflow
+            - POSTGRES_DB=airflow
+            - REDIS_PASSWORD=redispass
         command: worker

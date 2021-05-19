@@ -38,7 +38,7 @@ Don't forget to update the airflow images in the docker-compose files to puckel/
 
 By default, docker-airflow runs Airflow with **SequentialExecutor** :
 
-    docker run -d -p 8080:8080 puckel/docker-airflow webserver
+    docker run -d -p 8000:8000 puckel/docker-airflow webserver
 
 If you want to run another executor, use the other docker-compose.yml files provided in this repository.
 
@@ -54,7 +54,7 @@ NB : If you want to have DAGs example loaded (default=False), you've to set the 
 
 `LOAD_EX=n`
 
-    docker run -d -p 8080:8080 -e LOAD_EX=y puckel/docker-airflow
+    docker run -d -p 8000:8000 -e LOAD_EX=y puckel/docker-airflow
 
 If you want to use Ad hoc query, make sure you've configured connections:
 Go to Admin -> Connections and Edit "postgres_default" set this values (equivalent to values in airflow.cfg/docker-compose*.yml) :
@@ -95,7 +95,7 @@ In order to incorporate plugins into your docker container
 
 ## UI Links
 
-- Airflow: [localhost:8080](http://localhost:8080/)
+- Airflow: [localhost:8000](http://localhost:8000/)
 - Flower: [localhost:5555](http://localhost:5555/)
 
 
