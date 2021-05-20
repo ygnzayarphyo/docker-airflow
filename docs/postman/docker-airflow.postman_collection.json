@@ -1,0 +1,164 @@
+{
+	"info": {
+		"_postman_id": "272ccc49-1bc0-4eef-ae34-d36d983732f7",
+		"name": "docker-airflow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "redis",
+			"item": [
+				{
+					"name": "redis/user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "127.0.0.1:5006/redis/user?userId=1",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5006",
+							"path": [
+								"redis",
+								"user"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "redis/user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"data\": \"{\\\"name\\\":\\\"cts\\\",\\\"email\\\":\\\"test@gmail.com\\\"}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "127.0.0.1:5006/redis/user"
+					},
+					"response": []
+				},
+				{
+					"name": "redis/user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1,\n    \"data\": \"{\\\"name\\\":\\\"cts\\\",\\\"email\\\":\\\"test@gmail.com\\\"}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "127.0.0.1:5006/redis/user"
+					},
+					"response": []
+				},
+				{
+					"name": "redis/user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "127.0.0.1:5006/redis/user"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mysql",
+			"item": [
+				{
+					"name": "mysql/user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "127.0.0.1:5006/mysql/user"
+					},
+					"response": []
+				},
+				{
+					"name": "mysql/user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"cts\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "127.0.0.1:5006/mysql/user"
+					},
+					"response": []
+				},
+				{
+					"name": "mysql/user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"username\": \"cts\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "127.0.0.1:5006/mysql/user"
+					},
+					"response": []
+				},
+				{
+					"name": "mysql/user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "127.0.0.1:5006/mysql/user"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

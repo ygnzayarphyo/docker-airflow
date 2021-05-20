@@ -56,6 +56,18 @@ services:
             timeout: 30s
             retries: 3
 
+    flask:
+        build: ./flask/
+        links:
+            - mysql
+        ports:
+            - "5006:5006"
+        volumes:
+            - .:/flask
+        depends_on:
+            - redis
+            - mysql
+
     flower:
         image: puckel/docker-airflow:1.10.9
         restart: always
